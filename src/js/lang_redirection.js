@@ -3,25 +3,25 @@ const redirection = function() {
     let defaultLang = "fr-FR";
 
     /**
-     * @description Little verification for mozilla because navigitor.language returns just "fr" and not "fr-FR", but for you it's same things.
-     * * It's same if your navigator is in english but i'm a baguette developpeur.
+     * @description Small check for mozilla because navigitor.language returns just "fr" and not "fr-FR", but it doesn't change anything for you.
+     * * It's the same if your navigator is in english but I'm a baguette developper.
      * @returns String
      */
     function getLanguage() {
-        return navigator.languages[0].length > navigator.languages[1].length ? navigator.languages[0] : navigator.languages[1]
+        return navigator.languages[0].length > navigator.languages[1].length ? navigator.languages[0] : navigator.languages[1];
     }
 
     /**
-     * @description Returns a list of available languages from your browser
+     * @description Returns the list of the available languages of your browser.
      * @returns String[]
      */
     function getLanguages() {
-        return navigator.languages && navigator.languages
+        return navigator.languages && navigator.languages;
     }
 
     /**
      * @param {String} param
-     * @description Set the default language of your website
+     * @description Set the default language of your website.
      */
     function setDefaultLanguage(param) {
         defaultLang = param;
@@ -29,7 +29,7 @@ const redirection = function() {
 
     /**
      * @param {String} param
-     * @description Set the default language of your website
+     * @description Get the default language of your website.
      */
     function getDefaultLanguage() {
         return defaultLang;
@@ -37,55 +37,56 @@ const redirection = function() {
 
     /**
      * @param {String[]} param
-     * @description List of supported languages you want for your web site
+     * @description List of supported languages you want for your web site.
      */
     function setSupportedLanguages(param) {
         supportedLang = param;
     }
 
     /**
-     * @description Get your supported language list
+     * @description Get the list of supported languages.
      * @returns String[]
      */
     function getSupportedLanguages() {
-        return supportedLang
+        return supportedLang;
     }
 
     /**
-     * @param {String} language 
-     * @returns boolean
+     * @param {String} language
+     * @returns Boolean.
      */
     function isSupportedLang(language) {
-        const isSupported = getSupportedLanguages().find(elt => {
-            if (elt === language) {
-                return true
-            }
-        }) || false;
+        const isSupported =
+            getSupportedLanguages().find(elt => {
+                if (elt === language) {
+                    return true;
+                }
+            }) || false;
         return isSupported ? true : false;
     }
 
     /**
-     * @param {String} language 
-     * @description do the redirection
+     * @param {String} language
+     * @description Do the redirection.
      */
     function setRedirection(language) {
         let isSupported = isSupportedLang(language);
         let lang = isSupported ? language : defaultLang;
 
         const head = document.head;
-        let meta = document.createElement('meta');
-        meta.httpEquiv = 'refresh';
+        let meta = document.createElement("meta");
+        meta.httpEquiv = "refresh";
         meta.content = `0; url=./${lang}/index.html`;
         head.prepend(meta);
     }
 
     return {
-        getLanguage, 
+        getLanguage,
         getLanguages,
         setDefaultLanguage,
         getDefaultLanguage,
         setSupportedLanguages,
         getSupportedLanguages,
         setRedirection
-    }
-}
+    };
+};
