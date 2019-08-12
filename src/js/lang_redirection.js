@@ -1,4 +1,4 @@
-const redirection = () => {
+const redirection = function() {
     let supportedLang = ["fr-FR"];
     let defaultLang = "fr-FR";
 
@@ -52,7 +52,6 @@ const redirection = () => {
     }
 
     /**
-     * 
      * @param {String} language 
      * @returns boolean
      */
@@ -66,13 +65,12 @@ const redirection = () => {
     }
 
     /**
-     * 
      * @param {String} language 
      * @description do the redirection
      */
     let setRedirection = (language) => {
         let isSupported = isSupportedLang(language);
-        let lang = isSupported ? param : defaultLang;
+        let lang = isSupported ? language : defaultLang;
 
         const head = document.head;
         let meta = document.createElement('meta');
