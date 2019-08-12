@@ -7,7 +7,7 @@ const redirection = function() {
      * * It's same if your navigator is in english but i'm a baguette developpeur.
      * @returns String
      */
-    let getLanguage = () => {
+    function getLanguage() {
         return navigator.languages[0].length > navigator.languages[1].length ? navigator.languages[0] : navigator.languages[1]
     }
 
@@ -15,7 +15,7 @@ const redirection = function() {
      * @description Returns a list of available languages from your browser
      * @returns String[]
      */
-    let getLanguages = () => {
+    function getLanguages() {
         return navigator.languages && navigator.languages
     }
 
@@ -23,7 +23,7 @@ const redirection = function() {
      * @param {String} param
      * @description Set the default language of your website
      */
-    let setDefaultLanguage = (param) => {
+    function setDefaultLanguage(param) {
         defaultLang = param;
     }
 
@@ -31,7 +31,7 @@ const redirection = function() {
      * @param {String} param
      * @description Set the default language of your website
      */
-    let getDefaultLanguage = () => {
+    function getDefaultLanguage() {
         return defaultLang;
     }
 
@@ -39,7 +39,7 @@ const redirection = function() {
      * @param {String[]} param
      * @description List of supported languages you want for your web site
      */
-    let setSupportedLanguages = (param) => {
+    function setSupportedLanguages(param) {
         supportedLang = param;
     }
 
@@ -47,7 +47,7 @@ const redirection = function() {
      * @description Get your supported language list
      * @returns String[]
      */
-    let getSupportedLanguages = () => {
+    function getSupportedLanguages() {
         return supportedLang
     }
 
@@ -55,20 +55,20 @@ const redirection = function() {
      * @param {String} language 
      * @returns boolean
      */
-    let isSupportedLang = (language) => {
-        getSupportedLanguages().find(elt => {
+    function isSupportedLang(language) {
+        const isSupported = getSupportedLanguages().find(elt => {
             if (elt === language) {
                 return true
             }
-        })
-        return false
+        }) || false;
+        return isSupported ? true : false;
     }
 
     /**
      * @param {String} language 
      * @description do the redirection
      */
-    let setRedirection = (language) => {
+    function setRedirection(language) {
         let isSupported = isSupportedLang(language);
         let lang = isSupported ? language : defaultLang;
 
