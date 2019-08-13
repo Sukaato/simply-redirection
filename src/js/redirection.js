@@ -3,14 +3,14 @@
  * @desc A Redirection object can be instanciated with an array of strings as first parameter or
  * @desc with languages as parameters (spread argument)
  * @desc First language will be selected as default language
- * @example
- * new Redirection([ 'fr-FR', 'en-US' ]).go('hello.html')
- * or
- * new Redirection('fr-FR', 'en-US').go('hello.html')
  */
 class Redirection { // eslint-disable-line no-unused-vars
   /**
    * @constructor
+   * @example
+   * new Redirection([ 'fr-FR', 'en-US' ])
+   * or
+   * new Redirection('fr-FR', 'en-US')
    */
   constructor () {
     this.pages = arguments.length === 1 && Array.isArray(arguments[0]) ? arguments[0] : Array.from(arguments)
@@ -31,7 +31,12 @@ class Redirection { // eslint-disable-line no-unused-vars
 
   /**
    * @method go
-   * @param  {String} [url] Optional sub URL - real URL will be 'folderLanguage/url'
+   * @param  {String} [url]      Optional sub URL - real URL will be 'folderLanguage/url'
+   * @param  {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
+   * @example
+   * redirection.go('index.html') // Redirecting to /lang/index.html
+   * or
+   * redirection.go('index.html', 2) // Redirecting to /lang/index.html after 2 seconds
    */
   go (url, cooldown) {
     const userlangs = window.navigator.languages || window.navigator.language || window.navigator.userLanguage
@@ -43,9 +48,10 @@ class Redirection { // eslint-disable-line no-unused-vars
   }
 
   /**
-   * @private _redirect
-   * @param  {String} lang  Language folder
-   * @param  {String} [url] Optional sub URL
+   * @private @method _redirect
+   * @param  {String} lang       Language folder
+   * @param  {String} [url]      Optional sub URL
+   * @param  {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
    */
   _redirect (lang, url, cooldown) {
     setTimeout(function () {
