@@ -33,13 +33,13 @@ class Redirection { // eslint-disable-line no-unused-vars
    * @method go
    * @param  {String} [url] Optional sub URL - real URL will be 'folderLanguage/url'
    */
-  go (url) {
+  go (url, cooldown) {
     const userlangs = window.navigator.languages || window.navigator.language || window.navigator.userLanguage
     for (const lang of Array.isArray(userlangs) ? userlangs : [ userlangs ]) {
-      if (this.lang2page[lang]) return this._redirect(this.lang2page[lang], url) // 'aa'-style language -> faster so checked first
-      if (this.pages.includes(lang)) return this._redirect(lang, url) // 'aa-AA'-style language -> slower
+      if (this.lang2page[lang]) return this._redirect(this.lang2page[lang], url, cooldown) // 'aa'-style language -> faster so checked first
+      if (this.pages.includes(lang)) return this._redirect(lang, url, cooldown) // 'aa-AA'-style language -> slower
     }
-    return this._redirect(this.pages[0], url) // default
+    return this._redirect(this.pages[0], url, cooldown) // default
   }
 
   /**
@@ -47,7 +47,9 @@ class Redirection { // eslint-disable-line no-unused-vars
    * @param  {String} lang  Language folder
    * @param  {String} [url] Optional sub URL
    */
-  _redirect (lang, url) {
-    window.location.href = `${lang}/${url || ''}`
+  _redirect (lang, url, cooldown) {
+    setTimeout(function () {
+      window.location.href = `${lang}/${url || ''}`
+    }, (cooldown || 0) * 1000)
   }
 }
