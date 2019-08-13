@@ -1,3 +1,4 @@
+/* global location */
 /**
  * @name Redirection
  * @desc A Redirection object can be instanciated with an array of strings as first parameter or
@@ -39,7 +40,7 @@ class Redirection { // eslint-disable-line no-unused-vars
    * redirection.go('index.html', 2) // Redirecting to /lang/index.html after 2 seconds
    */
   go (url, cooldown) {
-    const userlangs = window.navigator.languages || window.navigator.language || window.navigator.userLanguage
+    const userlangs = navigator.languages || navigator.language || navigator.userLanguage
     for (const lang of Array.isArray(userlangs) ? userlangs : [ userlangs ]) {
       if (this.lang2page[lang]) return this._redirect(this.lang2page[lang], url, cooldown) // 'aa'-style language -> faster so checked first
       if (this.pages.includes(lang)) return this._redirect(lang, url, cooldown) // 'aa-AA'-style language -> slower
@@ -54,8 +55,8 @@ class Redirection { // eslint-disable-line no-unused-vars
    * @param  {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
    */
   _redirect (lang, url, cooldown) {
-    setTimeout(function () {
-      window.location.href = `${lang}/${url || ''}`
+    setTimeout(() => {
+      location.href = `${lang}/${url || ''}`
     }, (cooldown || 0) * 1000)
   }
 }
