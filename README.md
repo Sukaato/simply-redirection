@@ -38,7 +38,7 @@ Please follow the [guidelines][link-contrib] when contributing!
 ## To do
 The following features are not implemented yet:
 
-- show the redirection cooldown on page
+- display the time before the redirection on the page
 
 ## License
 This project is licensed under the [MIT License][link-license].
