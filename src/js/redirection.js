@@ -33,7 +33,6 @@ class Redirection { // eslint-disable-line no-unused-vars
           this.langsList[lang] = page
         }
       })
-      
     } catch(err) {
       console.error(err);
     }
@@ -41,31 +40,40 @@ class Redirection { // eslint-disable-line no-unused-vars
 
   /**
    * @method go
-   * @param  {String} [url]      Optional sub URL - real URL will be 'folderLanguage/url'
-   * @param  {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
+   * @param {String} [url]      Optional URL - if the URL starts with 'http' or 'https' you will be redirected to that URL, 
+   *                            otherwise you will be redirected to 'folderLanguage/url'
+   * @param {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
    * @example
    * redirection.go('index.html') // Redirecting to /lang/index.html
    * or
    * redirection.go('index.html', 2) // Redirecting to /lang/index.html after 2 seconds
+   * or
+   * redirection.go('https://github.com/Sukaato') // Redirecting to https://github/Sukaato
+   * or
+   * redirection.go('https://github.com/Sukaato' 2) // Redirecting to https://github/Sukaato after 2 seconds
    */
-   go(url, cooldown) {
+  go(url, cooldown) {
+    if (url.startsWith('http')) {
+      return this._redirect("", url, cooldown)
+    }
     const userlangs = navigator.languages || navigator.language
     for (const lang of Array.isArray(userlangs) ? userlangs : [userlangs]) {
       if (this.langsList[lang]) return this._redirect(this.langsList[lang], url, cooldown) // 'aa'-style language -> faster so checked first
       if (this.availableLangs.includes(lang)) return this._redirect(lang, url, cooldown) // 'aa-AA'-style language -> slower
     }
-    return this._redirect(this.pages[0], url, cooldown) // default
+    return this._redirect(this.availableLangs[0], url, cooldown) // default
   }
 
   /**
    * @private @method _redirect
-   * @param  {String} lang       Language folder
-   * @param  {String} [url]      Optional sub URL
-   * @param  {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
+   * @param {String} lang       Language folder
+   * @param {String} [url]      Optional sub URL
+   * @param {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
    */
   _redirect(lang, url, cooldown) {
     setTimeout(() => {
-      location.href = `${lang}/${url || ''}`
+      let redirect = lang ? lang.length !== 0 && `${location.href}/${lang}/${url || 'index.html'}` : url;
+      location.replace(redirect)
     }, (cooldown || 0) * 1000)
   }
 }
