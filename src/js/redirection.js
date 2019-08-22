@@ -1,79 +1,68 @@
-/* global location */
 /**
- * @name Redirection
- * @class
+ * @class @name Redirection
  * @desc A Redirection object can be instanciated with an array of strings as first parameter or
  * with languages as parameters (spread argument)
  * First language will be selected as default language
+ * @author https://github.com/Sukaato
  */
-class Redirection { // eslint-disable-line no-unused-vars
+class Redirection {
   /**
    * @constructor
-   * @example
-   * new Redirection([ 'fr-FR', 'en-US' ])
-   * or
-   * new Redirection('fr-FR', 'en-US')
+   * @desc For examples, follow this link: https: //github.com/Sukaato/auto-redirection and look at the README file
    */
   constructor() {
     try {
-      const regex = /^([a-z]{2}-[A-Z]{2})$/;
+      const LangFormat = /^([a-z]{2}-[A-Z]{2})$/
+      this.userlangs = [navigator.language] || navigator.languages
       this.availableLangs = arguments.length === 1 && Array.isArray(arguments[0]) ? arguments[0] : Array.from(arguments)
-      if (!this.availableLangs.length) {
-        throw new Error('RedirectionError: There should be at least one language in the constructor call')
+
+      if (!this.availableLangs.every(lang => LangFormat.test(lang))) {
+        throw new Error('All languages should have the following format: aa-AA with aa for the language and AA for the region')
       }
 
-      if (!this.availableLangs.every(lang => regex.test(lang))) {
-        throw new Error('RedirectionError: All languages should have the following format: aa-AA with aa, the language and AA, the region')
+      if (this.availableLangs.length) {
+        this.langsList = {}
+        this.availableLangs.forEach(lang => {
+          const language = lang.split('-')[0]
+          this.langsList[language] ? this.langsList[language].push(lang) : this.langsList[language] = [lang]
+        })
       }
-
-      this.langsList = {}
-      this.availableLangs.forEach(page => {
-        const lang = page.split('-')[0]
-        if (!this.langsList[lang]) {
-          this.langsList[lang] = page
-        }
-      })
-    } catch(err) {
-      console.error(err);
+    } catch (error) {
+      console.error(`%c[Redirection] ${error}`, "font-size: 1.7em");
     }
   }
 
   /**
-   * @method go
-   * @param {String} [url]      Optional URL - if the URL starts with 'http' or 'https' you will be redirected to that URL, 
-   *                            otherwise you will be redirected to 'folderLanguage/url'
-   * @param {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
-   * @example
-   * redirection.go('index.html') // Redirecting to /lang/index.html
-   * or
-   * redirection.go('index.html', 2) // Redirecting to /lang/index.html after 2 seconds
-   * or
-   * redirection.go('https://github.com/Sukaato') // Redirecting to https://github/Sukaato
-   * or
-   * redirection.go('https://github.com/Sukaato' 2) // Redirecting to https://github/Sukaato after 2 seconds
+   * @private @method __redirect
+   * @param {[String, String, Number]} json contains the folder language, URL and cooldown (in seconds)
    */
-  go(url, cooldown) {
-    if (url.startsWith('http')) {
-      return this._redirect("", url, cooldown)
-    }
-    const userlangs = navigator.languages || navigator.language
-    for (const lang of Array.isArray(userlangs) ? userlangs : [userlangs]) {
-      if (this.langsList[lang]) return this._redirect(this.langsList[lang], url, cooldown) // 'aa'-style language -> faster so checked first
-      if (this.availableLangs.includes(lang)) return this._redirect(lang, url, cooldown) // 'aa-AA'-style language -> slower
-    }
-    return this._redirect(this.availableLangs[0], url, cooldown) // default
-  }
-
-  /**
-   * @private @method _redirect
-   * @param {String} lang       Language folder
-   * @param {String} [url]      Optional sub URL
-   * @param {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
-   */
-  _redirect(lang, url, cooldown) {
+  __redirect(json) {
     setTimeout(() => {
-      let redirect = lang ? lang.length !== 0 && `${location.href}/${lang}/${url || 'index.html'}` : url;
-      location.replace(redirect)
-    }, (cooldown || 0) * 1000)
+      json.lang ? location.href += `${json.lang}/${json.url}` : location.replace(json.url)
+    }, (json.cooldown || 0) * 1000);
+  }
+
+  /**
+   * @public @method redirect
+   * @param {String} url        URL where you want to be redirected
+   * @param {Number} [cooldown] Optional timer cooldown before redirection (in seconds)
+   * @desc For examples, follow this link: https: //github.com/Sukaato/auto-redirection and look at the README file
+   */
+  redirect(url, cooldown) {
+    if (url) {
+      const UrlProtocol = /^http[s]?:\/\//
+      if (UrlProtocol.test(url)) return this.__redirect({lang: null, url, cooldown})
+
+      for (const lang of this.userlangs) {
+        const language = lang.split('-')[0]
+        const list = this.langsList[language]
+        if (language === lang && list) return this.__redirect({lang: list[0], url, cooldown}) // 'aa'-style language -> faster
+        if (list && list.includes(lang)) return this.__redirect({lang:list[list.indexOf(lang)], url, cooldown}) // 'aa-AA'-style language -> slower
+      }
+      if (this.availableLangs.length) return this.__redirect({lang: this.availableLangs[0], url, cooldown}) // Default
+      console.error(`%c[Redirection] Error: You must define one or more available languages`, "font-size: 1.7em");
+    } else {
+      console.error(`%c[Redirection] Error: You must define a URL`, "font-size: 1.7em");
+    }
   }
 }
