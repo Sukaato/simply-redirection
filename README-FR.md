@@ -11,21 +11,23 @@ Dans votre projet, dans le head de votre document html tapez simplement :
 
 ```html
 <script src="your_project_folder/src/js/redirection.js"></script>
+<!-- ou -->
+<script src="https://gist.github.com/Sukaato/c3050455adb3483df6a52af9b9af88da.js"></script>
 ```
 
 ## Utilisation basique
 ```html
 <!-- Redirection vers /lang/index.html -->
-<script>new Redirection("fr-FR", "en-US").go("index.html")</script> 
+<script>new Redirection("fr-FR", "en-US").redirect("index.html")</script> 
 
-<!-- ou redirecting vers /lang/index.html après 2 seconds -->
-<script>new Redirection(["fr-FR", "en-US"]).go("index.html", 2)</script>
+<!-- ou redirection vers /lang/index.html après 2 seconds -->
+<script>new Redirection(["fr-FR", "en-US"]).redirect("index.html", 2)</script>
 
-<!-- ou redirecting vers https://github/Sukaato -->
-<script>new Redirection("fr-FR", "en-US").go("https://github.com/Sukaato")</script>
+<!-- ou redirection vers https://github/Sukaato -->
+<script>new Redirection().redirect("https://github.com/Sukaato")</script>
 
-<!-- ou redirecting vers https://github/Sukaato après 2 seconds -->
-<script>new Redirection("fr-FR", "en-US").go("https://github.com/Sukaato", 2)</script>
+<!-- ou redirection vers https://github/Sukaato après 2 seconds -->
+<script>new Redirection().redirect("https://github.com/Sukaato", 2)</script>
 ```
 
 ## Contribuer

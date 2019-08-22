@@ -11,21 +11,23 @@ In your project, in head of your html simply type :
 
 ```html
 <script src="your_project_folder/src/js/redirection.js"></script>
+<!-- or -->
+<script src="https://gist.github.com/Sukaato/c3050455adb3483df6a52af9b9af88da.js"></script>
 ```
 
 ## Basic usage
 ```html
 <!-- Redirecting to /lang/index.html -->
-<script>new Redirection("fr-FR", "en-US").go("index.html")</script> 
+<script>new Redirection("fr-FR", "en-US").redirect("index.html")</script> 
 
 <!-- or redirecting to /lang/index.html after 2 seconds -->
-<script>new Redirection(["fr-FR", "en-US"]).go("index.html", 2)</script>
+<script>new Redirection(["fr-FR", "en-US"]).redirect("index.html", 2)</script>
 
 <!-- or redirecting to https://github/Sukaato -->
-<script>new Redirection("fr-FR", "en-US").go("https://github.com/Sukaato")</script>
+<script>new Redirection().redirect("https://github.com/Sukaato")</script>
 
 <!-- or redirecting to https://github/Sukaato after 2 seconds -->
-<script>new Redirection("fr-FR", "en-US").go("https://github.com/Sukaato", 2)</script>
+<script>new Redirection().redirect("https://github.com/Sukaato", 2)</script>
 ```
 
 ## Contributing
@@ -51,5 +53,5 @@ This project is licensed under the [MIT License][link-license].
 [link-emerio]: https://github.com/TheEmerio
 [link-contrib]: https://github.com/Sukaato/auto-redirection/blob/master/CONTRIBUTING.md
 
-[img-version]: https://img.shields.io/badge/ver.-pre%20relase%200.2.1-blue
+[img-version]: https://img.shields.io/badge/ver.-pre%20relase%200.2.2-blue
 [img-license]: https://img.shields.io/npm/l/minecraft-lib.svg
