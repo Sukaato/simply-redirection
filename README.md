@@ -23,10 +23,10 @@ In your project, in head of your html simply type :
 <!-- or redirecting to /lang/index.html after 2 seconds -->
 <script>new Redirection(["fr-FR", "en-US"]).redirect("index.html", 2)</script>
 
-<!-- or redirecting to https://github/Sukaato -->
+<!-- or redirecting to https://github.com/Sukaato -->
 <script>new Redirection().redirect("https://github.com/Sukaato")</script>
 
-<!-- or redirecting to https://github/Sukaato after 2 seconds -->
+<!-- or redirecting to https://github.com/Sukaato after 2 seconds -->
 <script>new Redirection().redirect("https://github.com/Sukaato", 2)</script>
 ```
 
