@@ -39,7 +39,7 @@ N'hésitez pas à contribuer au projet !
 
 Veuillez suivre les [directives][link-contrib] pour contribuer !
 
-## A faire
+## À faire
 Les fonctionnalités suivantes ne sont pas encore implémentées :
 
 - afficher le temps avant la redirection sur la page

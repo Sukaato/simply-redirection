@@ -33,7 +33,7 @@ In your project, in head of your html simply type :
 ```
 
 ## Contributing
-Big thank to [TheEmrio][link-emrio] to the new redirection system
+Big thank to [TheEmrio][link-emrio] for the new redirection system
 
 Feel free to contribute to the project!
 
