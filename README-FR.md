@@ -1,10 +1,12 @@
-# auto-redirection ![version][img-version] [![license][img-license]][link-license] 
+# auto-redirection ![version][img-version] [![license][img-license]][link-license]
 > Un JS pur, une redirection facile pour votre site web ! !
 
 [License][link-license] |
 [Github][link-repo] |
 [Auteur][link-author] |
 [Site][link-site]
+
+Ce readme est disponible en : [Anglais][link-readme]
 
 ## Installation
 Dans votre projet, dans le head de votre document html tapez simplement :
@@ -18,7 +20,7 @@ Dans votre projet, dans le head de votre document html tapez simplement :
 ## Utilisation basique
 ```html
 <!-- Redirection vers /lang/index.html -->
-<script>new Redirection("fr-FR", "en-US").redirect("index.html")</script> 
+<script>new Redirection("fr-FR", "en-US").redirect("index.html")</script>
 
 <!-- ou redirection vers /lang/index.html après 2 seconds -->
 <script>new Redirection(["fr-FR", "en-US"]).redirect("index.html", 2)</script>
@@ -31,7 +33,7 @@ Dans votre projet, dans le head de votre document html tapez simplement :
 ```
 
 ## Contribuer
-Un grand merci à [TheEmerio][link-emerio] pour le nouveau système de redirection
+Un grand merci à [TheEmrio][link-emrio] pour le nouveau système de redirection
 
 N'hésitez pas à contribuer au projet !
 
@@ -50,8 +52,9 @@ Ce projet est sous licence [MIT License][link-license].
 [link-repo]: https://github.com/TheEmrio/minecraft-js
 [link-author]: https://github.com/Sukaato
 [link-site]: https://sukaato.github.io/
-[link-emerio]: https://github.com/TheEmerio
+[link-emrio]: https://github.com/TheEmrio
 [link-contrib]: https://github.com/Sukaato/auto-redirection/blob/master/CONTRIBUTING.md
+[link-readme]: https://github.com/Sukaato/auto-redirection/blob/master/README.md
 
 [img-version]: https://img.shields.io/badge/ver.-pre%20relase%200.2.1-blue
 [img-license]: https://img.shields.io/npm/l/minecraft-lib.svg
