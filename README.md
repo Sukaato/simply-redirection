@@ -13,9 +13,8 @@ In your project, in head of your html simply type :
 
 ```html
 <script src="your_project_folder/src/js/redirection.js"></script>
-<!-- or -->
-<script src="https://gist.github.com/Sukaato/c3050455adb3483df6a52af9b9af88da.js"></script>
 ```
+Or you can a submodule in your project with this [link][link-gist]
 
 ## Basic usage
 ```html
@@ -55,6 +54,7 @@ This project is licensed under the [MIT License][link-license].
 [link-emrio]: https://github.com/TheEmrio
 [link-contrib]: https://github.com/Sukaato/auto-redirection/blob/master/CONTRIBUTING.md
 [link-readme-fr]: https://github.com/Sukaato/auto-redirection/blob/master/README-FR.md
+[link-gist]: https://gist.github.com/Sukaato/64f24a7739ce6a094ebaa45b9c7fc022
 
 [img-version]: https://img.shields.io/badge/ver.-pre%20relase%200.2.2-blue
 [img-license]: https://img.shields.io/npm/l/minecraft-lib.svg
